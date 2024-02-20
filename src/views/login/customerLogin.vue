@@ -17,27 +17,42 @@
                 required
                 type="password"
               ></v-text-field>
-              <v-btn type="submit" color="primary">로그인</v-btn>
+              <v-btn type="submit" color="primary" :disabled="btnD">로그인</v-btn>
             </v-form>
           </v-card-text>
         </v-card>
       </v-col>
     </v-row>
-    <commonAlert type="error" messageType="login" :trigger="true" />
   </v-container>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { login } from '@/composables/login'
-import commonAlert from '@/components/common/commonAlert.vue'
+import { useRouter } from 'vue-router'
+import { useToast } from '@/composables/toastC'
+import { useIsLoggedInStore } from '@/stores/isLoggedIn'
+
+const toast = useToast()
+let btnD = ref(false)
+const route = useRouter()
+const isLoggedIn = useIsLoggedInStore()
 
 const logChk = login()
-console.log(logChk)
+
 const logins = () => {
   const result = logChk.customerLogin(id.value, password.value)
   if (!result) {
-    alert('아이디, 비밀번호를 다시 확인해주세요')
+    toast.sendToast('error', 'login')
+    btnD.value = true
+    setTimeout(() => {
+      btnD.value = false
+    }, 3000)
+  } else {
+    toast.sendToast('success', 'login')
+    isLoggedIn.setCurrentLogin(id.value)
+    isLoggedIn.login(true)
+    route.push('/')
   }
 }
 const id = ref('')

@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainLayoutVue from '../views/MainLayout.vue'
 import HomeView from '../views/HomeView.vue'
+import { useIsLoggedInStore } from '../stores/isLoggedIn'
+import { useToast } from '@/composables/toastC'
+
+const toast = useToast()
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +22,10 @@ const router = createRouter({
         {
           path: 'about',
           component: () => import('../views/AboutView.vue')
+        },
+        {
+          path: 'profile',
+          component: () => import('../views/common/logoutTest.vue')
         }
       ]
     },
@@ -41,7 +49,22 @@ const router = createRouter({
           name: 'admin',
           component: () => import('../views/login/adminLogin.vue')
         }
-      ]
+      ],
+      beforeEnter: (to, from, next) => {
+        const store = useIsLoggedInStore()
+        console.log(store)
+        if (store.isLoggedIn) {
+          toast.sendToast('error', 'alreadyLogin')
+          next('/')
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('../views/login/alertTest.vue')
     }
   ]
 })

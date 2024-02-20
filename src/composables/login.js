@@ -1,7 +1,8 @@
 export function login() {
   const customer = [
     {
-      id: 1,
+      idx: 1,
+      id: 'user1',
       name: '홍길동',
       email: '',
       password: '1234',

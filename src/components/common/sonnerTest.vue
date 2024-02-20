@@ -1,22 +1,18 @@
 <template>
   <div class="text-center ma-3">
-    <v-snackbar timeout="1000000000000" :v-model="trg" multi-line variant="elevated">
-      <!-- <v-alert :type="type" :text="alertMessage"></v-alert> -->
-      경고!
-    </v-snackbar>
-    <v-btn @click="trg = true">알람 테스트</v-btn>
-    <v-alert :type="type" :text="alertMessage"></v-alert>
+    <v-btn @click="showToast" color="primary">확인</v-btn>
   </div>
 </template>
 
 <script setup>
+import { toast } from 'vuetify-sonner'
+
 const alert = defineProps({
   type: String,
   messageType: String,
   trigger: { type: Boolean, default: false }
 })
-const trg = alert.trigger
-const type = alert.type // Fix typo: change 'tyle' to 'type'
+const type = alert.type
 const messageType = alert.messageType
 const initAlert = {
   error: {
@@ -29,6 +25,16 @@ const initAlert = {
     login: '로그인에 성공했습니다',
     board: '문의가 등록되었습니다.'
   }
+}
+
+const showToast = () => {
+  toast(alertMessage, {
+    cardProps: {
+      color: type,
+      class: 'elevation-10'
+    },
+    prependIcon: `$${type}`
+  })
 }
 
 let alertMessage = initAlert[type][messageType]
