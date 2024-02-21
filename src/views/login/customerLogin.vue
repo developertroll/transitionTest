@@ -52,6 +52,7 @@ const logins = () => {
     toast.sendToast('success', 'login')
     isLoggedIn.setCurrentLogin(id.value)
     isLoggedIn.login(true)
+    isLoggedIn.setUserType('customer')
     route.push('/')
   }
 }

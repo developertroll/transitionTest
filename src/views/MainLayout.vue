@@ -3,25 +3,24 @@
     <v-system-bar>
       <v-spacer></v-spacer>
 
-      <v-icon>mdi-square</v-icon>
+      <v-icon>fas fa-square</v-icon>
 
-      <v-icon>mdi-circle</v-icon>
+      <v-icon>fas fa-circle</v-icon>
 
-      <v-icon>mdi-triangle</v-icon>
+      <v-icon>fas fa-play</v-icon>
     </v-system-bar>
 
     <v-navigation-drawer v-model="drawer" app>
       <v-sheet color="grey-lighten-4" class="pa-4">
-        <v-avatar class="mb-4" color="grey-darken-1" size="64"></v-avatar>
-
-        <div>john@google.com</div>
+        <generalAvatar></generalAvatar>
+        <div>{{ user.name }}</div>
       </v-sheet>
 
       <v-divider></v-divider>
 
       <v-list>
         <v-list-item
-          v-for="menu in links.menuItems"
+          v-for="menu in menuItems"
           :key="menu.title"
           :prepend-icon="menu.icon"
           :title="menu.title"
@@ -47,8 +46,16 @@
 import { ref } from 'vue'
 import { RouterView } from 'vue-router'
 import { useMenu } from '../composables/menu'
+import { useIsLoggedInStore } from '@/stores/isLoggedIn'
+import { login } from '@/composables/login'
+import generalAvatar from '@/components/common/generalAvatar.vue'
+
+const loginChk = login()
 
 const links = useMenu()
+const isLoggedIn = useIsLoggedInStore()
+const menuItems = links.filterMenuItems(isLoggedIn.userType)
+const user = loginChk.findUser(isLoggedIn.currentLogin, isLoggedIn.userType)
 console.log(links.menuItems)
 
 const drawer = ref(null)

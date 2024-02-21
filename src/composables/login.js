@@ -1,7 +1,7 @@
 export function login() {
   const customer = [
     {
-      idx: 1,
+      idx: 0,
       id: 'user1',
       name: '홍길동',
       email: '',
@@ -11,7 +11,7 @@ export function login() {
   ]
   const admin = [
     {
-      idx: 1,
+      idx: 0,
       id: 'admin',
       name: '관리자',
       password: '1234'
@@ -25,5 +25,16 @@ export function login() {
     const result = admin.find((a) => a.id === id && a.password === password)
     return result
   }
-  return { customerLogin, adminLogin }
+  const customerFindUser = (id) => {
+    const result = customer.find((c) => c.id === id)
+    return result
+  }
+  const findUser = (id, type) => {
+    if (type === 'customer') {
+      return customer.find((c) => c.id === id)
+    } else {
+      return admin.find((a) => a.id === id)
+    }
+  }
+  return { customerLogin, adminLogin, customerFindUser, findUser }
 }
