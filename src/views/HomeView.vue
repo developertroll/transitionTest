@@ -7,10 +7,10 @@
       <contactGraph />
     </v-col>
     <v-col cols="12">
-      <contactList type="awaiting" />
+      <contactList type="접수" />
     </v-col>
     <v-col cols="12">
-      <contactList type="answered" />
+      <contactList type="답변" />
     </v-col>
     <!-- <v-col v-for="card in placeholder" :key="card" cols="12">
       <v-card>

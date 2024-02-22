@@ -12,7 +12,10 @@ export function useToast() {
     },
     success: {
       login: '로그인에 성공했습니다',
-      board: '문의가 등록되었습니다.'
+      request: '문의가 등록되었습니다.'
+    },
+    info: {
+      requestEdit: '수정 문의 등록 준비를 시작합니다.'
     }
   }
   const translate = {

@@ -1,9 +1,9 @@
 <template>
-  <v-row>
-    <v-col v-for="tag in props.tags" :key="tag" cols="12">
+  <v-chip-group>
+    <template v-for="tag in props.tags" :key="tag">
       <boardTag :tag="tag"></boardTag>
-    </v-col>
-  </v-row>
+    </template>
+  </v-chip-group>
 </template>
 
 <script setup>

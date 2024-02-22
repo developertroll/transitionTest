@@ -18,7 +18,17 @@ export const useContactStore = defineStore('contact', {
   }),
   actions: {
     createContact(value) {
-      this.contact.push(value)
+      this.contact.push({
+        idx: this.contact.length,
+        title: value.title,
+        content: value.content,
+        tag: value.tag,
+        writer: value.writer,
+        date: value.date,
+        status: '접수',
+        allocatedAdmin: value.allocatedAdmin ? value.allocatedAdmin : '',
+        answer: ''
+      })
     },
     resetContact() {
       this.contact = [

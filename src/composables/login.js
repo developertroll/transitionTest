@@ -1,4 +1,14 @@
 export function login() {
+  const translateKey = {
+    customer: '고객',
+    admin: '관리자',
+    idx: '인덱스',
+    id: '아이디',
+    name: '이름',
+    email: '이메일',
+    password: '비밀번호',
+    phone: '전화번호'
+  }
   const customer = [
     {
       idx: 0,
@@ -36,5 +46,12 @@ export function login() {
       return admin.find((a) => a.id === id)
     }
   }
-  return { customerLogin, adminLogin, customerFindUser, findUser }
+  const findUserByIdx = (idx, type) => {
+    if (type === 'customer') {
+      return customer.find((c) => c.idx === idx)
+    } else {
+      return admin.find((a) => a.idx === idx)
+    }
+  }
+  return { customerLogin, adminLogin, customerFindUser, findUser, translateKey, findUserByIdx }
 }

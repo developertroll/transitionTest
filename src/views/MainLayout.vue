@@ -13,6 +13,7 @@
     <v-navigation-drawer v-model="drawer" app>
       <v-sheet color="grey-lighten-4" class="pa-4">
         <generalAvatar></generalAvatar>
+        <div>{{ logCompany.companyName }}</div>
         <div>{{ user.name }}</div>
       </v-sheet>
 
@@ -49,11 +50,13 @@ import { useMenu } from '../composables/menu'
 import { useIsLoggedInStore } from '@/stores/isLoggedIn'
 import { login } from '@/composables/login'
 import generalAvatar from '@/components/common/generalAvatar.vue'
+import { storeToRefs } from 'pinia'
 
 const loginChk = login()
 
 const links = useMenu()
 const isLoggedIn = useIsLoggedInStore()
+const { logCompany } = storeToRefs(isLoggedIn)
 const menuItems = links.filterMenuItems(isLoggedIn.userType)
 const user = loginChk.findUser(isLoggedIn.currentLogin, isLoggedIn.userType)
 console.log(links.menuItems)

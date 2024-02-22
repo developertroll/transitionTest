@@ -31,8 +31,17 @@ export const useIsLoggedInStore = defineStore('isLoggedIn', {
     logName: (state) => {
       return login().findUser(state.currentLogin, state.userType).name
     },
+    logObj: (state) => {
+      return login().findUser(state.currentLogin, state.userType)
+    },
     logCompany: (state) => {
       return company().findCompanyByWorker(login().findUser(state.currentLogin, state.userType).idx)
+    },
+    idTranslate: () => {
+      return login().translateKey
+    },
+    companyTranslate: () => {
+      return company().companyTranslate
     }
   },
   persist: true

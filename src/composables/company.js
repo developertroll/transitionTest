@@ -1,4 +1,12 @@
 export function company() {
+  const companyTranslate = {
+    idx: '인덱스',
+    companyName: '회사명',
+    companyNumber: '사업자등록번호',
+    companyAddress: '회사주소',
+    companyType: '회사유형',
+    workerIdx: '근로자'
+  }
   const companyList = [
     {
       idx: 0,
@@ -18,5 +26,5 @@ export function company() {
   const findCompanyByWorker = (workerIdx) => {
     return companyList.find((c) => c.workerIdx.includes(workerIdx))
   }
-  return { companyList, addCompany, addWorker, findCompanyByWorker }
+  return { companyList, addCompany, addWorker, findCompanyByWorker, companyTranslate }
 }

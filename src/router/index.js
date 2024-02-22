@@ -25,7 +25,19 @@ const router = createRouter({
         },
         {
           path: 'profile',
-          component: () => import('../views/common/logoutTest.vue')
+          component: () => import('../views/customer/profileView.vue')
+        },
+        {
+          path: 'request/edit/:type/:idx',
+          component: () => import('../views/customer/requestEdit.vue')
+        },
+        {
+          path: 'contact',
+          component: () => import('../views/redirectPage.vue')
+        },
+        {
+          path: 'contact-history',
+          component: () => import('../views/redirectPage.vue')
         }
       ]
     },
@@ -66,6 +78,11 @@ const router = createRouter({
       name: 'test',
       component: () => import('../views/login/alertTest.vue')
     }
+    // {
+    //   path: '/test2/:type/:idx',
+    //   name: 'test2',
+    //   component: () => import('../views/customer/requestEdit.vue')
+    // }
   ]
 })
 

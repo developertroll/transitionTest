@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <profileList />
 </template>
 
-<script setup></script>
+<script setup>
+import profileList from '@/components/profile/profileList.vue'
+</script>
