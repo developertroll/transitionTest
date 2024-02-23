@@ -39,6 +39,14 @@
           </transition>
         </router-view>
       </v-container>
+      <dialogContainer :signal="dialogState" :props="dialogProps">
+        <template v-slot:cardTitle>
+          {{ dialogTitle }}
+        </template>
+        <template v-slot:text>
+          <component :is="dialogComponent" :props="dialogProps"></component>
+        </template>
+      </dialogContainer>
     </v-main>
   </v-app>
 </template>
@@ -51,9 +59,16 @@ import { useIsLoggedInStore } from '@/stores/isLoggedIn'
 import { login } from '@/composables/login'
 import generalAvatar from '@/components/common/generalAvatar.vue'
 import { storeToRefs } from 'pinia'
+import { useDialogStore } from '@/stores/dialog'
+import dialogContainer from '@/components/dialog/dialogContainer.vue'
+import { watch } from 'vue'
 
+const dialogStore = useDialogStore()
+const { dialogState, dialogComponent, dialogTitle, dialogProps } = storeToRefs(dialogStore)
+watch(dialogState, (val) => {
+  console.log(val)
+})
 const loginChk = login()
-
 const links = useMenu()
 const isLoggedIn = useIsLoggedInStore()
 const { logCompany } = storeToRefs(isLoggedIn)

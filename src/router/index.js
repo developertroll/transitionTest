@@ -33,7 +33,7 @@ const router = createRouter({
         },
         {
           path: 'contact',
-          component: () => import('../views/redirectPage.vue')
+          component: () => import('../views/contact/contactLayout.vue')
         },
         {
           path: 'contact-history',
@@ -76,7 +76,7 @@ const router = createRouter({
     {
       path: '/test',
       name: 'test',
-      component: () => import('../views/login/alertTest.vue')
+      component: () => import('../views/redirectPage.vue')
     }
     // {
     //   path: '/test2/:type/:idx',

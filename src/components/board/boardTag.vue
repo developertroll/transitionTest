@@ -1,11 +1,11 @@
 <template>
-  <v-chip>
-    {{ props.tag.name }}
+  <v-chip color="primary" variant="elevated">
+    {{ props.tag }}
   </v-chip>
 </template>
 
 <script setup>
 const props = defineProps({
-  tag: Object
+  tag: String
 })
 </script>

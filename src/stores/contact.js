@@ -57,7 +57,7 @@ export const useContactStore = defineStore('contact', {
   },
   getters: {
     customerGetContact: (state) => {
-      return (id) => state.contact.filter((c) => c.writer === id && c.status !== '삭제')
+      return (idx) => state.contact.filter((c) => c.writer === idx && c.status !== '삭제')
     },
     adminGetContact: (state) => {
       return (id) =>
