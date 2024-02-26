@@ -17,7 +17,6 @@
           </v-col>
         </v-row>
       </v-form>
-      {{ form }}
     </v-card-text>
   </v-card>
 </template>
