@@ -1,23 +1,15 @@
 <script setup>
 import { useDialogStore } from '@/stores/dialog'
-import { watch } from 'vue'
+
 const dialog = useDialogStore()
-const prop = defineProps({
+defineProps({
   props: Object,
   signal: Boolean
 })
-watch(
-  () => prop.signal,
-  (newVal) => {
-    if (!newVal) {
-      dialog.closeDialog()
-    }
-  }
-)
 </script>
 
 <template>
-  <v-dialog :model-value="signal">
+  <v-dialog :model-value="signal" @click:outside="dialog.closeDialog">
     <v-card>
       <v-card-title>
         <slot name="cardTitle"></slot>

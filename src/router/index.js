@@ -37,7 +37,7 @@ const router = createRouter({
         },
         {
           path: 'contact-history',
-          component: () => import('../views/redirectPage.vue')
+          component: () => import('../views/contact/finishedCview.vue')
         }
       ]
     },
@@ -86,12 +86,16 @@ const router = createRouter({
   ]
 })
 
-// router.beforeEach((to) => {
-//   const store = useIsLoggedInStore()
-//   // login children들은 store만 체크
-//   if (!store.isLoggedIn && !to.path.includes('login')) {
-//     return '/login'
+// /contact에서 다른곳으로 이동할때 경고창(작성중인 내용이 있을때) 띄우기
+// router.beforeEach((to, from, next) => {
+//   if (from.path === '/contact') {
+//     if (confirm('작성중인 내용이 있습니다. 정말로 이동하시겠습니까?')) {
+//       next()
+//     } else {
+//       next(false)
+//     }
+//   } else {
+//     next()
 //   }
 // })
-
 export default router

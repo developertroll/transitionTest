@@ -1,14 +1,19 @@
 <template>
-  <v-card class="h-150">
+  <v-card>
     <v-card-title> 문의 내용 </v-card-title>
     <v-card-text>
-      {{ props.content }}
+      <p v-html="formattedContent"></p>
     </v-card-text>
   </v-card>
 </template>
 
 <script setup>
-defineProps({
+import { computed } from 'vue'
+const props = defineProps({
   props: Object
+})
+
+const formattedContent = computed(() => {
+  return props.props.content.replace(/\n/g, '<br>')
 })
 </script>

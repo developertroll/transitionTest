@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-
+import moment from 'moment'
 export const useContactStore = defineStore('contact', {
   state: () => ({
     contact: [
@@ -24,7 +24,7 @@ export const useContactStore = defineStore('contact', {
         content: value.content,
         tag: value.tag,
         writer: value.writer,
-        date: value.date,
+        date: value.date ? value.date : moment().format('YYYY-MM-DD HH:mm:ss'),
         status: '접수',
         allocatedAdmin: value.allocatedAdmin ? value.allocatedAdmin : '',
         answer: ''

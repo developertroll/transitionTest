@@ -44,7 +44,7 @@
           {{ dialogTitle }}
         </template>
         <template v-slot:text>
-          <component :is="dialogComponent" :props="dialogProps"></component>
+          <component :is="dialogPropComponent" :props="dialogProps"></component>
         </template>
       </dialogContainer>
     </v-main>
@@ -61,12 +61,12 @@ import generalAvatar from '@/components/common/generalAvatar.vue'
 import { storeToRefs } from 'pinia'
 import { useDialogStore } from '@/stores/dialog'
 import dialogContainer from '@/components/dialog/dialogContainer.vue'
-import { watch } from 'vue'
+import { defineAsyncComponent, computed } from 'vue'
 
 const dialogStore = useDialogStore()
 const { dialogState, dialogComponent, dialogTitle, dialogProps } = storeToRefs(dialogStore)
-watch(dialogState, (val) => {
-  console.log(val)
+const dialogPropComponent = computed(() => {
+  return defineAsyncComponent(() => import(`@/components/contact/${dialogComponent.value}.vue`))
 })
 const loginChk = login()
 const links = useMenu()

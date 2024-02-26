@@ -1,17 +1,14 @@
 <template>
-  <div>
-    <detailContact :props="customerGetContact(0)[0]" />
-  </div>
+  <div>라우트 에러 방지용 더미 페이지</div>
 </template>
 
 <script setup>
 import { useIsLoggedInStore } from '@/stores/isLoggedIn'
 import { storeToRefs } from 'pinia'
 import { useContactStore } from '@/stores/contact'
-import detailContact from '@/components/contact/detailContact.vue'
 
 const cStore = useContactStore()
-const { customerGetContact } = cStore
+console.log(cStore)
 const store = useIsLoggedInStore()
 const { logCompany, logObj } = storeToRefs(store)
 console.log(logCompany, logObj)

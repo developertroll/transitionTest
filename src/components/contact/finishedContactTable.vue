@@ -19,7 +19,6 @@
     </template>
   </v-data-table>
 </template>
-import { dialogFunction } from '@/composables/dialogFunction';
 
 <script setup>
 import { useContactStore } from '@/stores/contact'
@@ -32,9 +31,9 @@ const sortBy = [{ key: 'idx', order: 'desc' }]
 const dialog = dialogFunction()
 const cStore = useContactStore()
 const iStore = useIsLoggedInStore()
-const { customerGetContact } = cStore
+const { customerGetContactHistory } = cStore
 const { logObj } = iStore
-const contacts = customerGetContact(logObj.idx)
+const contacts = customerGetContactHistory(logObj.idx)
 
 const headers = [
   { title: '문의 번호', key: 'idx' },

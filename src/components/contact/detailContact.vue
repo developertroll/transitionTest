@@ -16,9 +16,6 @@ console.log('detailContact 실행됨')
 
 <template>
   <v-card>
-    <v-card-title>
-      {{ props.title }}
-    </v-card-title>
     <v-card-text>
       <contactTitle :props="props"></contactTitle>
       <contactContent :props="props"></contactContent>
