@@ -14,6 +14,14 @@ export const useContactStore = defineStore('contact', {
         allocatedAdmin: '',
         answer: ''
       }
+    ],
+    adminOnlyInformation: [
+      {
+        idx: 0,
+        refIdx: 0,
+        tag: [],
+        desc: ''
+      }
     ]
   }),
   actions: {
@@ -51,8 +59,17 @@ export const useContactStore = defineStore('contact', {
     addContactTag(idx, tag) {
       this.contact[idx].tag = tag
     },
-    answerContact(idx, answer) {
+    answerContact(idx, answer, tag, desc) {
       this.contact[idx].answer = answer
+      this.adminOnlyInformation.push({
+        idx: this.adminOnlyInformation.length,
+        refIdx: idx,
+        tag: tag,
+        desc: desc
+      })
+    },
+    allocateAdminToContact(idx, adminIdx) {
+      this.contact[idx].allocatedAdmin = adminIdx
     }
   },
   getters: {
@@ -62,7 +79,15 @@ export const useContactStore = defineStore('contact', {
     adminGetContact: (state) => {
       return (id) =>
         state.contact.filter(
-          (c) => c.allocatedAdmin === id && c.status !== '완료' && c.status !== '삭제'
+          (c) =>
+            c.allocatedAdmin === id && c.status !== '완료' && c.status !== '삭제' && c.idx !== 0
+        )
+    },
+    adminGetAllContact: (state) => {
+      return () =>
+        state.contact.filter(
+          (c) =>
+            c.status !== '완료' && c.status !== '삭제' && c.idx !== 0 && c.allocatedAdmin === ''
         )
     },
     customerGetContactHistory: (state) => {
@@ -70,6 +95,15 @@ export const useContactStore = defineStore('contact', {
     },
     adminGetContactHistory: (state) => {
       return (id) => state.contact.filter((c) => c.allocatedAdmin === id && c.status === '완료')
+    },
+    getContactByIdx: (state) => {
+      return (idx) => state.contact.find((c) => c.idx === idx)
+    },
+    getAllocatedContact: (state) => {
+      return () =>
+        state.contact.filter(
+          (c) => c.allocatedAdmin !== '' && c.status !== '완료' && c.status !== '삭제'
+        )
     }
   },
   persist: true

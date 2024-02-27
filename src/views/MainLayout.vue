@@ -13,7 +13,7 @@
     <v-navigation-drawer v-model="drawer" app>
       <v-sheet color="grey-lighten-4" class="pa-4">
         <generalAvatar></generalAvatar>
-        <div>{{ logCompany.companyName }}</div>
+        <div v-if="isLoggedIn.userType === 'customer'">{{ logCompany.companyName }}</div>
         <div>{{ user.name }}</div>
       </v-sheet>
 

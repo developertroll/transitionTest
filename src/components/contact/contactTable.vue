@@ -19,22 +19,22 @@
     </template>
   </v-data-table>
 </template>
-import { dialogFunction } from '@/composables/dialogFunction';
-
 <script setup>
 import { useContactStore } from '@/stores/contact'
 import { useIsLoggedInStore } from '@/stores/isLoggedIn'
 import moment from 'moment'
 import tagGroupVue from '../board/tagGroup.vue'
 import { dialogFunction } from '@/composables/dialogFunction'
-
+const props = defineProps({
+  spec: { type: String, default: undefined }
+})
 const sortBy = [{ key: 'idx', order: 'desc' }]
 const dialog = dialogFunction()
 const cStore = useContactStore()
 const iStore = useIsLoggedInStore()
-const { customerGetContact } = cStore
-const { logObj } = iStore
-const contacts = customerGetContact(logObj.idx)
+const { customerGetContact, adminGetAllContact } = cStore
+const { logObj, uTypeChk } = iStore
+const contacts = uTypeChk === 'customer' ? customerGetContact(logObj.idx) : adminGetAllContact()
 
 const headers = [
   { title: '문의 번호', key: 'idx' },
@@ -45,7 +45,13 @@ const headers = [
 ]
 
 function test(item) {
-  dialog.openDialog('detailContact', item.title, item)
+  if (!props.spec) {
+    dialog.openDialog('detailContact', item.title, item)
+  } else if (props.spec === 'allocate') {
+    dialog.openDialog('allocateContact', item.title, item)
+  } else if (props.spec === 'changeAllocate') {
+    dialog.openDialog('changeAllocate', item.title, item)
+  }
 }
 </script>
 

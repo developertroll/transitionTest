@@ -32,7 +32,7 @@ export function useMenu() {
     },
     {
       icon: 'fas fa-user-cog',
-      title: '담당 문의',
+      title: '문의 담당',
       to: '/contact-admin',
       permission: 'admin'
     },

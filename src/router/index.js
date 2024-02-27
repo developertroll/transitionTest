@@ -38,6 +38,10 @@ const router = createRouter({
         {
           path: 'contact-history',
           component: () => import('../views/contact/finishedCview.vue')
+        },
+        {
+          path: 'contact-admin',
+          component: () => import('../views/admin/allocateLayout.vue')
         }
       ]
     },

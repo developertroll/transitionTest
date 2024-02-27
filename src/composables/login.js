@@ -23,8 +23,16 @@ export function login() {
     {
       idx: 0,
       id: 'admin',
-      name: '관리자',
-      password: '1234'
+      name: '김철수',
+      password: '1234',
+      grade: '관리자'
+    },
+    {
+      idx: 1,
+      id: 'admin2',
+      name: '김영희',
+      password: '1234',
+      grade: '2관리자'
     }
   ]
   const customerLogin = (id, password) => {
@@ -53,5 +61,21 @@ export function login() {
       return admin.find((a) => a.idx === idx)
     }
   }
-  return { customerLogin, adminLogin, customerFindUser, findUser, translateKey, findUserByIdx }
+  const getAdminList = () => {
+    return admin.map((a) => {
+      return {
+        value: a.idx,
+        title: `${a.name}(${a.grade})`
+      }
+    })
+  }
+  return {
+    customerLogin,
+    adminLogin,
+    customerFindUser,
+    findUser,
+    translateKey,
+    findUserByIdx,
+    getAdminList
+  }
 }
