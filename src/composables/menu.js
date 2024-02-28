@@ -16,7 +16,7 @@ export function useMenu() {
       icon: 'fas fa-user-gear',
       title: '프로필',
       to: '/profile',
-      permission: 'all'
+      permission: 'customer'
     },
     {
       icon: 'fas fa-clipboard-list',
@@ -32,14 +32,14 @@ export function useMenu() {
     },
     {
       icon: 'fas fa-user-cog',
-      title: '문의 담당',
+      title: '담당자 배정',
       to: '/contact-admin',
       permission: 'admin'
     },
     {
       icon: 'fas fa-address-book',
-      title: '완료된 문의 내역',
-      to: '/contact-history',
+      title: '답변 작성',
+      to: '/answer',
       permission: 'admin'
     },
     {

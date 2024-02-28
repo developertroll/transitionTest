@@ -21,27 +21,50 @@ const router = createRouter({
         },
         {
           path: 'about',
+          name: 'about',
           component: () => import('../views/AboutView.vue')
         },
         {
           path: 'profile',
+          name: 'profile',
           component: () => import('../views/customer/profileView.vue')
         },
         {
           path: 'request/edit/:type/:idx',
+          name: 'requestEdit',
           component: () => import('../views/customer/requestEdit.vue')
         },
         {
           path: 'contact',
+          name: 'contact',
           component: () => import('../views/contact/contactLayout.vue')
         },
         {
           path: 'contact-history',
+          name: 'contact-history',
           component: () => import('../views/contact/finishedCview.vue')
         },
         {
           path: 'contact-admin',
+          name: 'contact-admin',
           component: () => import('../views/admin/allocateLayout.vue')
+        },
+        {
+          path: 'answer',
+          name: 'answer',
+          component: () => import('../views/admin/answerPageLayout.vue'),
+          children: [
+            {
+              path: '',
+              name: 'answerTable',
+              component: () => import('@/components/admin/adminContactTable.vue')
+            },
+            {
+              path: ':idx',
+              name: 'answerForm',
+              component: () => import('../views/admin/answerLayout.vue')
+            }
+          ]
         }
       ]
     },

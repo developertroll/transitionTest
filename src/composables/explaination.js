@@ -24,7 +24,7 @@ export function explaination() {
     },
     {
       idx: 3,
-      tag: 'request-improvement',
+      tag: 'request-improve',
       answerTemplate:
         '요청하신 개선을 완료하였습니다. \n\n 개선 사항: {개선 사항}\n\n {직원} {계급} \n\n {날짜}',
       explainTemplate:

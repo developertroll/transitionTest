@@ -63,13 +63,10 @@ const createSample = (id) => {
       formTemplate.value = template
     }
   })
-  console.log(formTemplate.value.idx, typeof formTemplate.value.idx)
   formTemplate.value.idx === 4 ? (currentStep.value = 2) : (currentStep.value = 3)
-  console.log(currentStep.value)
 }
 
 const confirmed = () => {
-  console.log('confirmed 실행되어 문의 제작 시작')
   formTemplate.value.content = `${formTemplate.value.content} \n\n 상세 사항 \n\n 요청사항/문제사항: ${detailFormData.value.location} \n 발생시각: ${detailFormData.value.time} \n 기타사항: ${detailFormData.value.etc}`
   formTemplate.value.writer = logObj.idx
   cStore.createContact(formTemplate.value)

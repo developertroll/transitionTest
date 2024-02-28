@@ -22,6 +22,14 @@ export const useContactStore = defineStore('contact', {
         tag: [],
         desc: ''
       }
+    ],
+    reContact: [
+      {
+        idx: 0,
+        refIdx: 0,
+        question: '',
+        answer: ''
+      }
     ]
   }),
   actions: {
@@ -61,6 +69,7 @@ export const useContactStore = defineStore('contact', {
     },
     answerContact(idx, answer, tag, desc) {
       this.contact[idx].answer = answer
+      this.contact[idx].status = '답변 대기'
       this.adminOnlyInformation.push({
         idx: this.adminOnlyInformation.length,
         refIdx: idx,
@@ -70,17 +79,67 @@ export const useContactStore = defineStore('contact', {
     },
     allocateAdminToContact(idx, adminIdx) {
       this.contact[idx].allocatedAdmin = adminIdx
+    },
+    finishContact(idx) {
+      this.contact[idx].status = '완료'
+    },
+    createReContact(idx, text) {
+      this.contact[idx].status = '재문의 접수'
+      this.reContact.push({
+        idx: this.reContact.length,
+        refIdx: idx,
+        question: text,
+        answer: ''
+      })
+    },
+    answerReContact(idx, answers) {
+      // this.reContact에서 refIdx가 idx인 것을 찾아서 answer 대입
+      let contact = this.reContact.find((c) => c.refIdx === parseInt(idx) && c.answer === '')
+      if (contact) {
+        contact.answer = answers
+        this.contact[idx].status = '재답변 대기'
+      } else {
+        console.error(`No contact found with refIdx ${idx} and empty answer.`)
+      }
+    },
+    finishReContact(idx) {
+      this.contact[idx].status = '완료'
     }
   },
   getters: {
     customerGetContact: (state) => {
-      return (idx) => state.contact.filter((c) => c.writer === idx && c.status !== '삭제')
-    },
-    adminGetContact: (state) => {
-      return (id) =>
+      return (idx) =>
         state.contact.filter(
           (c) =>
-            c.allocatedAdmin === id && c.status !== '완료' && c.status !== '삭제' && c.idx !== 0
+            c.writer === idx &&
+            c.status !== '삭제' &&
+            c.status !== '완료' &&
+            c.status !== '답변 대기'
+        )
+    },
+    customerGetAllContact: (state) => {
+      return (idx) => state.contact.filter((c) => c.writer === idx && c.status !== '삭제')
+    },
+    customerGetAwaitingContact: (state) => {
+      return (idx) => {
+        return state.contact.filter((c) => c.writer === idx && c.status === '답변 대기')
+      }
+    },
+    customerGetFinishedContact: (state) => {
+      return (idx) => {
+        return state.contact.filter((c) => c.writer === idx && c.status === '완료')
+      }
+    },
+    adminGetContact: (state) => {
+      return (idx) =>
+        state.contact.filter(
+          (c) =>
+            c.allocatedAdmin === idx &&
+            c.status !== '완료' &&
+            c.status !== '삭제' &&
+            c.idx !== 0 &&
+            c.status !== '답변 대기' &&
+            this.getReContact(c.idx).length === 0
         )
     },
     adminGetAllContact: (state) => {
@@ -103,6 +162,15 @@ export const useContactStore = defineStore('contact', {
       return () =>
         state.contact.filter(
           (c) => c.allocatedAdmin !== '' && c.status !== '완료' && c.status !== '삭제'
+        )
+    },
+    getReContact: (state) => {
+      return (idx) => state.reContact.filter((c) => c.refIdx === idx)
+    },
+    getInfoContact: (state) => {
+      return () =>
+        state.contact.filter(
+          (c) => c.title.includes('회원 정보') && c.status !== '삭제' && c.status !== '완료'
         )
     }
   },

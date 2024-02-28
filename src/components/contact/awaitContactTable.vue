@@ -32,14 +32,9 @@ const sortBy = [{ key: 'idx', order: 'desc' }]
 const dialog = dialogFunction()
 const cStore = useContactStore()
 const iStore = useIsLoggedInStore()
-const { customerGetContact, adminGetAllContact, getAllocatedContact } = cStore
+const { customerGetAwaitingContact } = cStore
 const { logObj, uTypeChk } = iStore
-const contacts =
-  uTypeChk === 'customer'
-    ? customerGetContact(logObj.idx)
-    : props.spec === 'allocateContact'
-      ? adminGetAllContact()
-      : getAllocatedContact()
+const contacts = customerGetAwaitingContact(logObj.idx)
 
 const headers = [
   { title: '문의 번호', key: 'idx' },
@@ -50,13 +45,7 @@ const headers = [
 ]
 
 function test(item) {
-  if (!props.spec) {
-    dialog.openDialog('detailContact', item.title, item)
-  } else if (props.spec === 'allocateContact') {
-    dialog.openDialog('allocateContact', item.title, item)
-  } else if (props.spec === 'changeAllocate') {
-    dialog.openDialog('changeAllocate', item.title, item)
-  }
+  dialog.openDialog('awaitDetailContact', item.title, item)
 }
 </script>
 

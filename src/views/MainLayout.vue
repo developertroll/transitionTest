@@ -34,8 +34,10 @@
     <v-main>
       <v-container class="py-8 px-6" fluid>
         <router-view v-slot="{ Component, route }">
-          <transition name="fade" mode="out-in" appear>
-            <component :is="Component" :key="route.path" />
+          <transition name="fade" mode="out-in">
+            <div :key="$route.name">
+              <component :is="Component" :key="$route.path" />
+            </div>
           </transition>
         </router-view>
       </v-container>
@@ -74,7 +76,6 @@ const isLoggedIn = useIsLoggedInStore()
 const { logCompany } = storeToRefs(isLoggedIn)
 const menuItems = links.filterMenuItems(isLoggedIn.userType)
 const user = loginChk.findUser(isLoggedIn.currentLogin, isLoggedIn.userType)
-console.log(links.menuItems)
 
 const drawer = ref(null)
 </script>

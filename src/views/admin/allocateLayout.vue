@@ -7,9 +7,9 @@
     </v-tabs>
 
     <v-card-text>
-      <allocateContact v-if="currentTab === 0"></allocateContact>
+      <allocateContact v-if="currentTab === 0" type="allocateContact"></allocateContact>
       <!-- tab2는 등록 -->
-      <allocateContact v-if="currentTab === 1"></allocateContact>
+      <allocateContact v-if="currentTab === 1" type="changeAllocate"></allocateContact>
     </v-card-text>
   </v-card>
 </template>

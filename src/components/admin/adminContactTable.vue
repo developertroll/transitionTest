@@ -25,6 +25,9 @@ import { useIsLoggedInStore } from '@/stores/isLoggedIn'
 import moment from 'moment'
 import tagGroupVue from '../board/tagGroup.vue'
 import { dialogFunction } from '@/composables/dialogFunction'
+import { useRouter } from 'vue-router'
+
+const route = useRouter()
 const props = defineProps({
   spec: { type: String, default: undefined }
 })
@@ -32,14 +35,9 @@ const sortBy = [{ key: 'idx', order: 'desc' }]
 const dialog = dialogFunction()
 const cStore = useContactStore()
 const iStore = useIsLoggedInStore()
-const { customerGetContact, adminGetAllContact, getAllocatedContact } = cStore
+const { adminGetContact } = cStore
 const { logObj, uTypeChk } = iStore
-const contacts =
-  uTypeChk === 'customer'
-    ? customerGetContact(logObj.idx)
-    : props.spec === 'allocateContact'
-      ? adminGetAllContact()
-      : getAllocatedContact()
+const contacts = adminGetContact(logObj.idx)
 
 const headers = [
   { title: '문의 번호', key: 'idx' },
@@ -48,15 +46,9 @@ const headers = [
   { title: '문의 일자', key: 'date' },
   { title: '문의 상태', key: 'status' }
 ]
-
+// router 이용 해서 해당 문의 상세(답변 작성하는) 페이지로 이동할 것
 function test(item) {
-  if (!props.spec) {
-    dialog.openDialog('detailContact', item.title, item)
-  } else if (props.spec === 'allocateContact') {
-    dialog.openDialog('allocateContact', item.title, item)
-  } else if (props.spec === 'changeAllocate') {
-    dialog.openDialog('changeAllocate', item.title, item)
-  }
+  route.push(`/answer/${item.idx}`)
 }
 </script>
 

@@ -1,7 +1,11 @@
 <template>
-  <contactTable spec="allocate"></contactTable>
+  <contactTable :spec="type"></contactTable>
 </template>
 
 <script setup>
 import contactTable from '@/components/contact/contactTable.vue'
+
+defineProps({
+  type: String
+})
 </script>

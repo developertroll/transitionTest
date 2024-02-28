@@ -19,7 +19,6 @@
         <v-btn @click="submitForm" color="primary">제출</v-btn>
       </v-col>
     </v-row>
-    {{ form }}
   </v-form>
 </template>
 
@@ -31,6 +30,7 @@ import adminExplain from './adminExplain.vue'
 import makeAnswerTag from './makeAnswerTag.vue'
 import { adminTag } from '@/composables/adminTag'
 
+const emit = defineEmits(['pushAnswer'])
 const adminTags = adminTag().tags
 const props = defineProps({
   contactIdx: Number
@@ -54,7 +54,7 @@ function titleToTag(title) {
 function addTag(tag) {
   form.value.adminTag = []
   tag.forEach((tag) => {
-    form.value.adminTag.push(adminTags[tag])
+    form.value.adminTag.push(adminTags[tag].idx)
   })
 }
 
@@ -73,6 +73,6 @@ form.value.adminDescription = targetTemplate.explainTemplate
 form.value.answer = targetTemplate.answerTemplate
 
 function submitForm() {
-  console.log(form.value)
+  emit('pushAnswer', form.value)
 }
 </script>

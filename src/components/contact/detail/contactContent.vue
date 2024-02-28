@@ -14,6 +14,9 @@ const props = defineProps({
 })
 
 const formattedContent = computed(() => {
-  return props.props.content.replace(/\n/g, '<br>')
+  if (props.props.content) {
+    return props.props.content.replace(/\n/g, '<br>')
+  }
+  return ''
 })
 </script>

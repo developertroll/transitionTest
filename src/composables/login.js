@@ -17,6 +17,14 @@ export function login() {
       email: '',
       password: '1234',
       phone: '010-1234-5678'
+    },
+    {
+      idx: 1,
+      id: 'user2',
+      name: '이번이',
+      email: 'twotwo@twotwo.dummy',
+      password: 'asdf1234!@#$',
+      phone: '010-2134-5252'
     }
   ]
   const admin = [
@@ -69,6 +77,7 @@ export function login() {
       }
     })
   }
+
   return {
     customerLogin,
     adminLogin,
@@ -76,6 +85,8 @@ export function login() {
     findUser,
     translateKey,
     findUserByIdx,
-    getAdminList
+    getAdminList,
+    customer,
+    admin
   }
 }
