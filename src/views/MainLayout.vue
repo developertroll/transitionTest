@@ -8,6 +8,9 @@
       <v-icon>fas fa-circle</v-icon>
 
       <v-icon>fas fa-play</v-icon>
+      <v-btn icon @click="logOut" size="x-small">
+        <v-icon>fas fa-arrow-right-from-bracket</v-icon>
+      </v-btn>
     </v-system-bar>
 
     <v-navigation-drawer v-model="drawer" app>
@@ -33,7 +36,7 @@
 
     <v-main>
       <v-container class="py-8 px-6" fluid>
-        <router-view v-slot="{ Component, route }">
+        <router-view v-slot="{ Component }">
           <transition name="fade" mode="out-in">
             <div :key="$route.name">
               <component :is="Component" :key="$route.path" />
@@ -41,10 +44,7 @@
           </transition>
         </router-view>
       </v-container>
-      <dialogContainer :signal="dialogState" :props="dialogProps">
-        <template v-slot:cardTitle>
-          {{ dialogTitle }}
-        </template>
+      <dialogContainer :signal="dialogState" :props="dialogProps" :title="dialogTitle">
         <template v-slot:text>
           <component :is="dialogPropComponent" :props="dialogProps"></component>
         </template>
@@ -55,7 +55,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { RouterView } from 'vue-router'
+import { RouterView, useRouter } from 'vue-router'
 import { useMenu } from '../composables/menu'
 import { useIsLoggedInStore } from '@/stores/isLoggedIn'
 import { login } from '@/composables/login'
@@ -64,7 +64,7 @@ import { storeToRefs } from 'pinia'
 import { useDialogStore } from '@/stores/dialog'
 import dialogContainer from '@/components/dialog/dialogContainer.vue'
 import { defineAsyncComponent, computed } from 'vue'
-
+const router = useRouter()
 const dialogStore = useDialogStore()
 const { dialogState, dialogComponent, dialogTitle, dialogProps } = storeToRefs(dialogStore)
 const dialogPropComponent = computed(() => {
@@ -77,5 +77,11 @@ const { logCompany } = storeToRefs(isLoggedIn)
 const menuItems = links.filterMenuItems(isLoggedIn.userType)
 const user = loginChk.findUser(isLoggedIn.currentLogin, isLoggedIn.userType)
 
+function logOut() {
+  isLoggedIn.logout()
+  alert('로그아웃 했습니다')
+
+  router.replace('/login')
+}
 const drawer = ref(null)
 </script>

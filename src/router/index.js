@@ -65,6 +65,38 @@ const router = createRouter({
               component: () => import('../views/admin/answerLayout.vue')
             }
           ]
+        },
+        {
+          path: 'management',
+          name: 'management',
+          component: () => import('../views/admin/management/managementView.vue')
+        },
+        {
+          path: 'data',
+          name: 'board',
+          component: () => import('../views/admin/board/boardLayout.vue'),
+          children: [
+            {
+              path: '',
+              name: 'boardTable',
+              component: () => import('@/components/admin/board/boardTable.vue')
+            },
+            {
+              path: 'write',
+              name: 'boardWrite',
+              component: () => import('@/components/admin/board/boardWrite.vue')
+            },
+            {
+              path: 'view/:idx',
+              name: 'boardView',
+              component: () => import('@/components/admin/board/boardView.vue')
+            },
+            {
+              path: 'edit/:idx',
+              name: 'boardUpdate',
+              component: () => import('@/components/admin/board/boardUpdate.vue')
+            }
+          ]
         }
       ]
     },

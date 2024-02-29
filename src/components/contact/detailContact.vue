@@ -14,8 +14,7 @@ defineOptions({
 const parent = defineProps({
   props: Object
 })
-const props = parent.props
-console.log(getReContact(props.idx))
+const props = parent.props ? parent.props : parent
 </script>
 
 <template>

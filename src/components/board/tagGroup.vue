@@ -13,5 +13,5 @@ const props = defineProps({
   tags: Array
 })
 // tags의 길이만큼 0,1,2...로 구성되는 Array 생성
-let sTag = Array.from({ length: props.tags.length }, (v, i) => i)
+let sTag = props.tags ? Array.from({ length: props.tags.length }, (v, i) => i) : []
 </script>

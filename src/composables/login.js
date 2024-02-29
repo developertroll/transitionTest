@@ -7,9 +7,14 @@ export function login() {
     name: '이름',
     email: '이메일',
     password: '비밀번호',
-    phone: '전화번호'
+    phone: '전화번호',
+    grade: '등급'
   }
-  const customer = [
+  const saveList = () => {
+    localStorage.setItem('customer', JSON.stringify(customer))
+    localStorage.setItem('admin', JSON.stringify(admin))
+  }
+  const customer = JSON.parse(localStorage.getItem('customer')) || [
     {
       idx: 0,
       id: 'user1',
@@ -27,7 +32,7 @@ export function login() {
       phone: '010-2134-5252'
     }
   ]
-  const admin = [
+  const admin = JSON.parse(localStorage.getItem('admin')) || [
     {
       idx: 0,
       id: 'admin',
@@ -64,9 +69,9 @@ export function login() {
   }
   const findUserByIdx = (idx, type) => {
     if (type === 'customer') {
-      return customer.find((c) => c.idx === idx)
+      return customer.find((c) => idx !== undefined && c.idx === idx)
     } else {
-      return admin.find((a) => a.idx === idx)
+      return admin.find((a) => idx !== undefined && a.idx === idx)
     }
   }
   const getAdminList = () => {
@@ -76,6 +81,33 @@ export function login() {
         title: `${a.name}(${a.grade})`
       }
     })
+  }
+  const getWorkerArray = () => {
+    return customer.map((c) => {
+      return {
+        value: c.idx,
+        title: c.name
+      }
+    })
+  }
+  const translateWorkerArray = (workerArray) => {
+    if (workerArray === undefined) return []
+    return workerArray.map((w) => {
+      return {
+        value: w,
+        title: findUserByIdx(w, 'customer') ? findUserByIdx(w, 'customer').name : ''
+      }
+    })
+  }
+  const updateUser = (user, type) => {
+    if (type === 'customer') {
+      const idx = customer.findIndex((c) => c.idx === user.idx)
+      customer[idx] = user
+    } else {
+      const idx = admin.findIndex((a) => a.idx === user.idx)
+      admin[idx] = user
+    }
+    saveList()
   }
 
   return {
@@ -87,6 +119,9 @@ export function login() {
     findUserByIdx,
     getAdminList,
     customer,
-    admin
+    admin,
+    getWorkerArray,
+    translateWorkerArray,
+    updateUser
   }
 }

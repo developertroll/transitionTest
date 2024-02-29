@@ -104,6 +104,12 @@ export const useContactStore = defineStore('contact', {
     },
     finishReContact(idx) {
       this.contact[idx].status = '완료'
+    },
+    findFirstCotactByUser(idx) {
+      return this.contact.find(
+        (c) =>
+          c.writer === idx && c.status !== '삭제' && c.status !== '완료' && c.status !== '답변 대기'
+      )
     }
   },
   getters: {
@@ -170,7 +176,7 @@ export const useContactStore = defineStore('contact', {
     getInfoContact: (state) => {
       return () =>
         state.contact.filter(
-          (c) => c.title.includes('회원 정보') && c.status !== '삭제' && c.status !== '완료'
+          (c) => c.title.includes('회원정보') && c.status !== '삭제' && c.status !== '완료'
         )
     }
   },

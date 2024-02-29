@@ -18,10 +18,14 @@ export function useToast() {
       contactEnd: '문의가 성공적으로 조치되었습니다.',
       reContact: '재문의가 등록되었습니다.',
       reContactAnswer: '재문의 답변이 등록되었습니다.',
-      reContactEnd: '재문의가 성공적으로 조치되었습니다.'
+      reContactEnd: '재문의가 성공적으로 조치되었습니다.',
+      update: '수정이 완료되었습니다.',
+      boardWrite: '게시글이 등록되었습니다.',
+      boardUpdate: '게시글이 수정되었습니다.'
     },
     info: {
-      requestEdit: '수정 문의 등록 준비를 시작합니다.'
+      requestEdit: '수정 문의 등록 준비를 시작합니다.',
+      cancel: '취소되었습니다.'
     }
   }
   const translate = {
